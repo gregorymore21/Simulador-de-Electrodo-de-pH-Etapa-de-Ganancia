@@ -1,4 +1,4 @@
-// Laboratorio 1 - Instrumentación Biomédica III
+// Laboratorio 2 - Instrumentación Biomédica III
 // Acondicionamiento de señales de alta impedancia
 // Simulación de electrodo de pH mediante ESP32
 
@@ -26,7 +26,7 @@ void setup() {
 
   Serial.println("====================================");
   Serial.println(" SIMULADOR DE ELECTRODO DE pH");
-  Serial.println(" Laboratorio 1 - IB III");
+  Serial.println(" Laboratorio 2 - IB III");
   Serial.println("====================================");
   Serial.println("Ingrese un valor de pH entre 0 y 14:");
 }
