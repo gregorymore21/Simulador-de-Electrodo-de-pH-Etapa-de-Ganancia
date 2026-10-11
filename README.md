@@ -41,7 +41,55 @@ El programa cargado en el ESP32 calcula el potencial teórico de Nernst a 25 °C
 $$E_{\text{Nernst}} = -0.05916 \times (\text{pH} - 7)$$
 
 Se le aplica un factor de escala (5.0) y un offset de 1.65 V para acondicionarlo al rango dinámico del DAC (0 V a 3.3 V), entregando una salida analógica por el pin **GPIO25**.
+## 5. Resultados y Curva de Calibración
 
+### Tabla Consolidada de Mediciones ($V_{\text{in}}$ vs. $V_{\text{out}}$)
+
+| pH Simulado | V Salida ESP32 / $V_{\text{in}}$ Teórico (V) | V Medido TP1 - Buffer (V) | Vout Teórico TP2 (V) | Vout Medido TP2 (V) |
+| :---: | :---: | :---: | :---: | :---: |
+| **0** | 3.3000 | 3.165 | 9.9000 | **9.480** |
+| **2** | 3.1290 | 3.012 | 9.3870 | **9.020** |
+| **4** | 2.5374 | 2.457 | 7.6122 | **7.360** |
+| **6** | 1.9458 | 1.902 | 5.8374 | **5.705** |
+| **7** | 1.6500 | 1.639 | 4.9500 | **4.915** |
+| **8** | 1.3542 | 1.374 | 4.0626 | **4.120** |
+| **10** | 0.7626 | 0.819 | 2.2878 | **2.456** |
+| **12** | 0.1710 | 0.265 | 0.5130 | **0.792** |
+| **14** | 0.0000 | 0.112 | 0.0000 | **0.336** |
+
+### Curva de Calibración Experimental ($V_{\text{out}}$ vs. pH)
+
+![Curva de Calibración](fig9_curva_calibracion.png)
+*Figura 4. Regresión lineal $V_{\text{out}}$ vs. pH simulado y datos experimentales medidos en TP2.*
+
+* **Ecuación de calibración:** $V_{\text{out}} = -0.7229 \cdot \text{pH} + 9.9695$
+* **Coeficiente de determinación ($R^2$):** $0.9871$
+* **Ganancia experimental:** $A_{v,\text{exp}} = \frac{\Delta V_{\text{out}}}{\Delta V_{\text{in}}} = \frac{9.144\text{ V}}{3.053\text{ V}} = 2.995$ (Error respecto al teórico $A_v = 3.0$: **0.16%**)
+* **Sensibilidad experimental:** $|a| = 0.7229\text{ V/pH}$
+
+---
+
+## 6. Componentes e Instrumental Utilizados
+
+* Microcontrolador ESP32 DevKit V1
+* Circuito Integrado TL084N (Op-amp cuádruple con entrada JFET)
+* Resistencia $10\text{ k}\Omega$ ($\times 3$)
+* Fuentes de energía: Dos baterías de $9\text{ V}$ (Alimentación dual $\pm 9\text{ V}$)
+* Multímetro digital de precisión y Osciloscopio digital de banco
+* Protoboard y cables jumper
+
+---
+
+## 7. Integrantes
+
+* **Dávila Pucuhuayla, Jazmín Sarai** — *Código: 23190369*
+* **Leon Vasquez, Jimmy Fabricio** — *Código: 23190378*
+* **More Quispe, Gregory Martin** — *Código: 23190125*
+* **Maldonado Villacorta, Paola Margot** — *Código: 23190124*
+* **Sotomayor Villanueva, Genny Solangch** — *Código: 23190393*
+
+**Docente:** Dra. María Elisia Armas Alvarado  
+**Curso:** Instrumentación Biomédica III — Universidad Nacional Mayor de San Marcos (UNMSM)
 ```cpp
 // Parámetros principales del código
 const int DAC_PIN = 25;
